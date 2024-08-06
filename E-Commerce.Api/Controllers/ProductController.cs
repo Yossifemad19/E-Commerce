@@ -1,14 +1,16 @@
-﻿using E_Commerce.Core.Entities;
+﻿using E_Commerce.Api.Helpers;
+using E_Commerce.Core.Entities;
 using E_Commerce.Core.Interfaces;
 using E_Commerce.Core.Specification;
 using E_Commerce.Infrastructure.Data;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 namespace E_Commerce.Api.Controllers
 {
     [ApiController]
     [Route("api/[Controller]")]
-    public class ProductController
+    public class ProductController:ControllerBase
     {
         private readonly IGenericRepository<Product> _repo;
 
@@ -18,10 +20,15 @@ namespace E_Commerce.Api.Controllers
         }
 
         [HttpGet("get-all-data")]
-        public async Task<ActionResult<List<Product>>> GetAllAsync()
+        public async Task<ActionResult<Pagination<Product>>> GetAllAsync([FromQuery] ProductSpecParams productParams)
         {
-            var spec = new ProductWithTypeAndBrandSpecification();
-            return await _repo.GetAllWithSpecAsync(spec);
+            var spec = new ProductWithTypeAndBrandSpecification(productParams);
+
+            var products= await _repo.GetAllWithSpecAsync(spec);
+            var countSpec = new ProductCountsWithSpec(productParams);
+            var totalItems =await _repo.CountAsync(countSpec);
+            
+            return Ok(new Pagination<Product>(productParams.PageIndex, productParams.PageSize, totalItems, products));
         }
 
         [HttpGet("{id}")]

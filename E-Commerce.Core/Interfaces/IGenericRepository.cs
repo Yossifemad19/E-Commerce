@@ -17,5 +17,6 @@ namespace E_Commerce.Core.Interfaces
 
         public Task<T> GetByIdWithSpecAsync(ISpecification<T> spec);
 
+        public Task<int> CountAsync(ISpecification<T> spec);
     }
 }

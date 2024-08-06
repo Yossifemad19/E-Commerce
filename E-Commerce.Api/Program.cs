@@ -1,6 +1,9 @@
 
+using E_Commerce.Api.Errors;
 using E_Commerce.Api.Extensions;
+using E_Commerce.Api.Middlewares;
 using E_Commerce.Infrastructure.Data;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace E_Commerce.Api
@@ -14,7 +17,25 @@ namespace E_Commerce.Api
             // Add services to the container.
 
             builder.Services.AddControllers();
+            builder.Services.Configure<ApiBehaviorOptions>(options =>
+            {
+                options.InvalidModelStateResponseFactory = actionContext =>
+            {
+                var errors = actionContext.ModelState
+                .Where(x => x.Value.Errors.Count > 0)
+                .SelectMany(e => e.Value.Errors)
+                .Select(e => e.ErrorMessage)
+                .ToList();
 
+                var errorResponse = new ApiValidation
+                {
+                    Errors = errors
+                };
+                return new BadRequestObjectResult(errorResponse);
+            };
+                
+            }
+            ) ;
 
             builder.Services.addApplicationServices(builder.Configuration);
 
@@ -28,11 +49,17 @@ namespace E_Commerce.Api
 
 
             // Configure the HTTP request pipeline.
+
+
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+            app.UseMiddleware<ExceptionMiddleware>();
+
+
+            app.UseStatusCodePagesWithReExecute("/Erros/{0}");
 
             app.UseAuthorization();
 

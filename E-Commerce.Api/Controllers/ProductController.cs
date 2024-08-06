@@ -4,7 +4,7 @@ using E_Commerce.Core.Specification;
 using E_Commerce.Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
 
-namespace E_Commerce.Api
+namespace E_Commerce.Api.Controllers
 {
     [ApiController]
     [Route("api/[Controller]")]
@@ -18,7 +18,8 @@ namespace E_Commerce.Api
         }
 
         [HttpGet("get-all-data")]
-        public async Task<ActionResult<List<Product>>> GetAllAsync() {
+        public async Task<ActionResult<List<Product>>> GetAllAsync()
+        {
             var spec = new ProductWithTypeAndBrandSpecification();
             return await _repo.GetAllWithSpecAsync(spec);
         }

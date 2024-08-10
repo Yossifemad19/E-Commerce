@@ -14,6 +14,7 @@ namespace E_Commerce.Infrastructure.Services
 {
     public class TokenService : ItokenService
     {
+        
         private readonly IConfiguration _config;
         private readonly SymmetricSecurityKey _Key;
 

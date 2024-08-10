@@ -1,5 +1,7 @@
 ﻿using E_Commerce.Core.Interfaces;
 using E_Commerce.Infrastructure.Data;
+using E_Commerce.Infrastructure.Data.Identity;
+using E_Commerce.Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace E_Commerce.Api.Extensions
@@ -12,7 +14,10 @@ namespace E_Commerce.Api.Extensions
                 options => options.UseSqlServer(config.GetConnectionString("default"))
                 );
 
+            
+
             services.AddScoped(typeof(IGenericRepository<>),typeof(GenericRepository<>));
+            services.AddScoped<ItokenService, TokenService>();
             return services;
         }
     }

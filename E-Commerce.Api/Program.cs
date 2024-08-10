@@ -2,7 +2,11 @@
 using E_Commerce.Api.Errors;
 using E_Commerce.Api.Extensions;
 using E_Commerce.Api.Middlewares;
+using E_Commerce.Core.Entities.Identity;
 using E_Commerce.Infrastructure.Data;
+using E_Commerce.Infrastructure.Data.Identity;
+using E_Commerce.Infrastructure.Identity;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -38,7 +42,7 @@ namespace E_Commerce.Api
             ) ;
 
             builder.Services.addApplicationServices(builder.Configuration);
-
+            builder.Services.AddIdentityServices(builder.Configuration);
 
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -61,6 +65,7 @@ namespace E_Commerce.Api
 
             app.UseStatusCodePagesWithReExecute("/Erros/{0}");
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
 
@@ -74,6 +79,11 @@ namespace E_Commerce.Api
             {
                 await context.Database.MigrateAsync();
                 await StoreContextSeed.SeedDataAsync(context);
+
+                var userManager=services.GetRequiredService<UserManager<AppUser>>();
+                var identityContext= services.GetRequiredService<AppIdentityDbContext>();
+                await identityContext.Database.MigrateAsync();
+                await AppIdentityDbContextSeed.SeedIdentityDateAsync(userManager);
             }
             catch (Exception ex)
             {

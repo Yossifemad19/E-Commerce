@@ -5,6 +5,7 @@ using E_Commerce.Infrastructure.Services;
 using StackExchange.Redis;
 
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 namespace E_Commerce.Api.Extensions
 {
@@ -27,6 +28,7 @@ namespace E_Commerce.Api.Extensions
             services.AddScoped<IBasketService,BasketService>();
             services.AddScoped(typeof(IGenericRepository<>),typeof(GenericRepository<>));
             services.AddScoped<ItokenService, TokenService>();
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
             return services;
         }
     }

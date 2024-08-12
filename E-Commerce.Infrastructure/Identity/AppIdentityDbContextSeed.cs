@@ -21,8 +21,8 @@ namespace E_Commerce.Infrastructure.Identity
                     Email="Youssef@test.com",
                     Address=new Address()
                     {
-                        Name="mohamed",
-                        Street="39 a",
+                        StreetName="mohamed",
+                        HouseNumber="39" ,
                         State="helwan"
                     }
                 

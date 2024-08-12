@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace E_Commerce.Infrastructure.Identity.Migrations
 {
     [DbContext(typeof(AppIdentityDbContext))]
-    [Migration("20240808235001_add user and address tables")]
-    partial class adduserandaddresstables
+    [Migration("20240812162251_Add Identity with address tables")]
+    partial class AddIdentitywithaddresstables
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -37,7 +37,7 @@ namespace E_Commerce.Infrastructure.Identity.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("HouseNumber")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -45,7 +45,7 @@ namespace E_Commerce.Infrastructure.Identity.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Street")
+                    b.Property<string>("StreetName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

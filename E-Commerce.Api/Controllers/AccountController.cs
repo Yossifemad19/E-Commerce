@@ -1,4 +1,5 @@
-﻿using E_Commerce.Api.DTOs;
+﻿using AutoMapper;
+using E_Commerce.Api.DTOs;
 using E_Commerce.Api.Errors;
 using E_Commerce.Api.Extensions;
 using E_Commerce.Core.Entities.Identity;
@@ -14,11 +15,13 @@ namespace E_Commerce.Api.Controllers
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly ItokenService _tokenService;
+        private readonly IMapper _mapper;
 
-        public AccountController(UserManager<AppUser> userManager,ItokenService tokenService)
+        public AccountController(UserManager<AppUser> userManager,ItokenService tokenService,IMapper mapper)
         {
             _userManager = userManager;
             _tokenService = tokenService;
+            _mapper = mapper;
         }
 
         [Authorize]
@@ -66,12 +69,7 @@ namespace E_Commerce.Api.Controllers
         {
             var user = await _userManager.GetUserWithAddresByEmail(User);
 
-            return Ok(new AddressDto
-            {
-                Name=user.Address.Name,
-                State=user.Address.State,
-                Street=user.Address.Street,
-            });
+            return Ok(_mapper.Map<Address,AddressDto>(user.Address));
         }
 
         [HttpGet("EmailExist")]

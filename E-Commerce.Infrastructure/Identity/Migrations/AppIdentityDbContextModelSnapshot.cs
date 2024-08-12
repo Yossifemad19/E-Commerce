@@ -34,7 +34,7 @@ namespace E_Commerce.Infrastructure.Identity.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("HouseNumber")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -42,7 +42,7 @@ namespace E_Commerce.Infrastructure.Identity.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Street")
+                    b.Property<string>("StreetName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

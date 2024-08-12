@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace E_Commerce.Infrastructure.Identity.Migrations
 {
     /// <inheritdoc />
-    public partial class adduserandaddresstables : Migration
+    public partial class AddIdentitywithaddresstables : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -78,8 +78,8 @@ namespace E_Commerce.Infrastructure.Identity.Migrations
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Street = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    StreetName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    HouseNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     State = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     AppUSerId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },

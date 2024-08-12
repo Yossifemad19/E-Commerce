@@ -44,7 +44,7 @@ namespace E_Commerce.Api
             builder.Services.addApplicationServices(builder.Configuration);
             builder.Services.AddIdentityServices(builder.Configuration);
 
-
+            builder.Services.AddCors();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
@@ -60,14 +60,16 @@ namespace E_Commerce.Api
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+
+
             app.UseMiddleware<ExceptionMiddleware>();
 
+            app.UseStaticFiles();
 
             app.UseStatusCodePagesWithReExecute("/Erros/{0}");
 
             app.UseAuthentication();
             app.UseAuthorization();
-
 
             app.MapControllers();
 

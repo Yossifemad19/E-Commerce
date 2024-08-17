@@ -52,5 +52,20 @@ namespace E_Commerce.Infrastructure.Data
         {
             return SpecificationEvaluator<T>.GetQuery(_dbSet.AsQueryable(), spec);
         }
+
+        public void Add(T entity)
+        {
+            _dbSet.Add(entity);
+        }
+
+        public void Update(T entity)
+        {
+            _dbSet.Attach(entity);
+        }
+
+        public void Delete(T entity)
+        {
+            _dbSet.Remove(entity);
+        }
     }
 }

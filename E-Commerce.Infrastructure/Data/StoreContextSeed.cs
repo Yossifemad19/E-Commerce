@@ -1,4 +1,5 @@
 ﻿using E_Commerce.Core.Entities;
+using E_Commerce.Core.Entities.OrdderAggregate;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -47,6 +48,17 @@ namespace E_Commerce.Infrastructure.Data
                 await context.SaveChangesAsync();
 
             }
+            if (!context.DeliveryMethods.Any())
+            {
+                var DeliveryData = File.ReadAllText("../E-Commerce.Infrastructure/Data/SeedData/delivery.json");
+
+                var delivery = JsonSerializer.Deserialize<List<DeliveryMethod>>(DeliveryData);
+
+                context.DeliveryMethods.AddRange(delivery);
+                await context.SaveChangesAsync();
+
+            }
+
             //if (context.ChangeTracker.HasChanges())
             //{
             //}

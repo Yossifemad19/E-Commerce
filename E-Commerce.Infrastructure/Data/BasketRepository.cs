@@ -8,14 +8,14 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace E_Commerce.Infrastructure.Services
+namespace E_Commerce.Infrastructure.Data
 {
-    public class BasketService : IBasketService
+    public class BasketRepository : IBasketRepository
     {
-        private  readonly IDatabase _database;
-        public BasketService(IConnectionMultiplexer Redis)
+        private readonly IDatabase _database;
+        public BasketRepository(IConnectionMultiplexer Redis)
         {
-            _database=Redis.GetDatabase();
+            _database = Redis.GetDatabase();
         }
         public async Task<bool> DeleteBasket(string id)
         {
@@ -24,14 +24,14 @@ namespace E_Commerce.Infrastructure.Services
 
         public async Task<CustomerBasket> GetBasket(string id)
         {
-            var basket =await _database.StringGetAsync(id);
-            return basket.IsNullOrEmpty?null:JsonSerializer.Deserialize<CustomerBasket>(basket);
+            var basket = await _database.StringGetAsync(id);
+            return basket.IsNullOrEmpty ? null : JsonSerializer.Deserialize<CustomerBasket>(basket);
         }
 
         public async Task<CustomerBasket> UpdateBasket(CustomerBasket basket)
         {
-            var createdBasket = await _database.StringSetAsync(basket.Id, 
-                JsonSerializer.Serialize(basket),TimeSpan.FromDays(10));
+            var createdBasket = await _database.StringSetAsync(basket.Id,
+                JsonSerializer.Serialize(basket), TimeSpan.FromDays(10));
 
             if (!createdBasket) return null;
 

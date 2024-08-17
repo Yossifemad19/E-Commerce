@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace E_Commerce.Core.Interfaces
 {
-    public interface IBasketService
+    public interface IBasketRepository
     {
         Task<CustomerBasket> GetBasket(string id);
         Task<CustomerBasket> UpdateBasket(CustomerBasket basket);

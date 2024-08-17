@@ -6,9 +6,9 @@ namespace E_Commerce.Api.Controllers
 {
     public class BasketController:BaseApiController
     {
-        private readonly IBasketService _basket;
+        private readonly IBasketRepository _basket;
 
-        public BasketController(IBasketService basket)
+        public BasketController(IBasketRepository basket)
         {
             _basket = basket;
         }

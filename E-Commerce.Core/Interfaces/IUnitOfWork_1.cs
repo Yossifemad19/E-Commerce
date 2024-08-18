@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace E_Commerce.Core.Interfaces
 {
-    public interface IGenericRepository<T> where T : BaseEntity
+    public interface IUnitOfWork<T> where T : BaseEntity
     {
         public Task<List<T>> GetAllAsync();
         public Task<T> GetByIdAsync(int id);

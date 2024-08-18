@@ -9,7 +9,7 @@ namespace E_Commerce.Core.Interfaces
 {
     public interface IUnitOfWork:IDisposable
     {
-        IGenericRepository<TEnity> Repository<TEnity>() where TEnity:BaseEntity;
+        IUnitOfWork<TEnity> Repository<TEnity>() where TEnity:BaseEntity;
         Task<int> Complete();
     }
 }

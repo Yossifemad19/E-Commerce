@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace E_Commerce.Infrastructure.Data
 {
-    public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
+    public class GenericRepository<T> : IUnitOfWork<T> where T : BaseEntity
     {
         private readonly StoreContext _context;
         private readonly DbSet<T> _dbSet;   

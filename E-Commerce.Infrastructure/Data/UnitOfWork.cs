@@ -29,7 +29,7 @@ namespace E_Commerce.Infrastructure.Data
             _context.Dispose();
         }
 
-        public IGenericRepository<TEnity> Repository<TEnity>() where TEnity : BaseEntity
+        public IUnitOfWork<TEnity> Repository<TEnity>() where TEnity : BaseEntity
         {
             if(_repositories==null) _repositories = new Hashtable();
 
@@ -44,7 +44,7 @@ namespace E_Commerce.Infrastructure.Data
                 _repositories.Add(type, repo);
             }
 
-            return (IGenericRepository<TEnity>) _repositories[type];
+            return (IUnitOfWork<TEnity>) _repositories[type];
         }
     }
 }

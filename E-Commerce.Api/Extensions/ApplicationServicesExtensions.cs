@@ -26,11 +26,13 @@ namespace E_Commerce.Api.Extensions
 
 
             services.AddScoped<IBasketRepository,BasketRepository>();
-            services.AddScoped(typeof(IGenericRepository<>),typeof(GenericRepository<>));
+            services.AddScoped(typeof(IUnitOfWork<>),typeof(GenericRepository<>));
             services.AddScoped<ItokenService, TokenService>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();      
             services.AddScoped<IOrderService,OrderService>();  
             services.AddScoped<IPaymentService,PaymentService>();
+
+            services.AddSingleton<ICachedService,CachedService>();
 
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             return services;

@@ -29,7 +29,9 @@ namespace E_Commerce.Api.Extensions
             services.AddScoped(typeof(IGenericRepository<>),typeof(GenericRepository<>));
             services.AddScoped<ItokenService, TokenService>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();      
-            services.AddScoped<IOrderService,OrderService>();   
+            services.AddScoped<IOrderService,OrderService>();  
+            services.AddScoped<IPaymentService,PaymentService>();
+
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             return services;
         }

@@ -30,6 +30,7 @@ namespace E_Commerce.Core.Entities.OrdderAggregate
 
         public DateTimeOffset OrderDate { get; set; } = DateTime.UtcNow;
         public decimal SubTotal { get; set; }
+        public string PaymentIntentId { get; set; }
 
         public decimal GetTotal (){
             return SubTotal+DeliveryMethod.Price;
